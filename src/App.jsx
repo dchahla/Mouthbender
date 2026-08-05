@@ -34,7 +34,7 @@ const tokenToViseme = (token) => {
   if (/[szcj]/i.test(token)) return 's';
   if (/[l]/i.test(token)) return 'l';
   if (/[tdn]/i.test(token)) return 'th';
-  if (/[g]/i.test(token)) return 'g';
+  if (/[gn]/i.test(token)) return 'g';
   if (/[r]/i.test(token)) return 'g';
   if (/[kqdrx]/i.test(token)) return 'k';
   if (/[eiy]/i.test(token)) return 'e';
@@ -60,7 +60,8 @@ const SILENT_E_RULE = [/([bcdfghjklmnpqrstvwxz])e\b/gi, '$1'];
 // "uck" must land before "ing" so "trucking" -> "trooocking" -> "trooocke".
 const PRONUNCIATION_SOUND_RULES = [
   [/uck/gi, 'oock'],
-    [/u/gi, 'oo'],
+  [/u/gi, 'oo'],
+  [/ph/gi, 'f'],
   [/z/gi, 'ss'],
   [/ing/gi, 'e'],
 ];
@@ -156,7 +157,7 @@ const App = () => {
     if (isPlaying || !inputText) return;
     setIsPlaying(true);
 
-    const tokens = inputText.toLowerCase().match(/th|ch|sh|[a-z]| /g) || [];
+    const tokens = pronouncedText.toLowerCase().match(/th|ch|sh|[a-z]| /g) || [];
 
     for (let token of tokens) {
       if (token === ' ') {
