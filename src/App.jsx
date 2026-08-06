@@ -179,15 +179,15 @@ const App = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-950 text-slate-100 p-6 font-sans">
-      <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 shadow-2xl">
+      <div className="max-w-md w-full bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl">
         <header className="text-center mb-6">
-          <h1 className="text-3xl font-black tracking-tighter bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-black tracking-tighter bg-gradient-to-r from-emerald-400 to-cyan-400 ">
             MOUTHBENDER
           </h1>
-          <p className="text-slate-500 text-[10px] uppercase tracking-widest mt-1">Z-Depth Articulation</p>
+          <p className="text-slate-500 text-[10px] uppercase tracking-widest mt-1">hellbender.com was taken.</p>
         </header>
 
-        <div className="relative aspect-video w-full flex items-center justify-center bg-black/40 rounded-3xl border border-white/5 mb-6 shadow-inner overflow-hidden">
+        <div style={{  maxHeight: `300px` }} className="relative aspect-video w-full flex items-center justify-center bg-black/40 rounded-3xl  mb-6 shadow-inner overflow-hidden">
           <svg viewBox="0 0 100 100" className="w-full h-full filter drop-shadow-xl">
             <defs>
               <clipPath id="fullMouthClip">
