@@ -133,3 +133,44 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+.site-footer {
+  margin-top: auto;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.site-footer .made-with {
+  margin: 0 0 10px;
+}
+
+.site-footer .heart {
+  color: #ff4d4d;
+}
+
+.github-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+  color: var(--text-h);
+  text-decoration: none;
+  font-size: 13px;
+  transition: border-color 150ms ease-out, background 150ms ease-out;
+}
+
+.github-badge:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.github-badge svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
