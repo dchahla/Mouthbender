@@ -4,6 +4,12 @@ A small React + SVG toy that morphs a face through mouth shapes (visemes) as you
 
 Each character is mapped to a viseme (a mouth pose — lip width, teeth, tongue position), and playback animates smoothly between them so the mouth looks like it's talking. No frame-swapped sprites, no raster assets — every shape is a vector path, and transitions are just path interpolation.
 
+
+![helloworld mouthbender](https://chahla.net/assets/helloworld_mouthbender.gif)
+
+
+
+
 ## Features
 
 - **Text-to-viseme playback** — type a phrase and hit play; each letter (and digraphs like `th`, `ch`, `sh`) resolves to a mouth shape and holds for a duration tuned per sound.
