@@ -14,7 +14,7 @@ Each character is mapped to a viseme (a mouth pose — lip width, teeth, tongue 
 
 - **Text-to-viseme playback** — type a phrase and hit play; each letter (and digraphs like `th`, `ch`, `sh`) resolves to a mouth shape and holds for a duration tuned per sound.
 - **Manual viseme picker** — a grid of buttons to jump straight to any mouth shape, useful for tuning the shapes themselves.
-- **Pronunciation preview** — a toggle (the ear icon) switches the input between what you typed and a rough phonetic respelling, so you can sanity-check how the engine will read tricky words before playing them. Rules include things like silent trailing `e` (`like` → `lik`), `z` → `ss`, and `ing` → `e`.
+- **Pronunciation preview** — a toggle (the ear icon) switches the input between what you typed and a rough phonetic respelling, so you can sanity-check how the engine will read tricky words before playing them. Rules include things like silent trailing `e` (`like` → `lik`).
 
 ## Getting started
 
