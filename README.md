@@ -2,6 +2,10 @@
 
 A small React + SVG toy that morphs a face through mouth shapes (visemes) as you type. Named after the hellbender — the salamander that breathes through the folds of its own skin — this is about bending geometry, not swapping sprites.
 
+
+
+ [`Live Demo`](https://chahla.net/assets/mouthbender/)
+
 Each character is mapped to a viseme (a mouth pose — lip width, teeth, tongue position), and playback animates smoothly between them so the mouth looks like it's talking. No frame-swapped sprites, no raster assets — every shape is a vector path, and transitions are just path interpolation.
 
 
