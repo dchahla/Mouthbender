@@ -187,7 +187,7 @@ const App = () => {
           <p className="text-slate-500 text-[10px] uppercase tracking-widest mt-1">hellbender.com was taken.</p>
         </header>
 
-        <div style={{  maxHeight: `300px` }} className="relative aspect-video w-full flex items-center justify-center bg-black/40 rounded-3xl  mb-6 shadow-inner overflow-hidden">
+        <div style={{  maxHeight: `500px` }} className="relative aspect-video w-full flex items-center justify-center bg-black/40 rounded-3xl  mb-6 shadow-inner overflow-hidden">
           <svg viewBox="0 0 100 100" className="w-full h-full filter drop-shadow-xl">
             <defs>
               <clipPath id="fullMouthClip">
