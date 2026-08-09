@@ -46,7 +46,7 @@ const tokenToViseme = (token) => {
 // Whole-word swaps for words whose spelling doesn't hint at how they sound.
 const PRONUNCIATION_WORD_RULES = [
   [/\bis\b/gi, 'eeess'],
-  [/\bthe\b/gi, 'theeeth'],
+  [/\bthis\b/gi, 'theeeth'],
   [/\bi\b/gi, 'a'],
 ];
 
