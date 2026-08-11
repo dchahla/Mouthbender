@@ -208,8 +208,93 @@ body {
   animation: lower-lip-u-kiss 620ms ease-in-out forwards;
 }
 
-.top-teeth-clip-u-kiss {
-  animation: top-teeth-clip-u-kiss 620ms ease-in-out forwards;
+/* `b` and `p` pop: both rest with the lips sealed (uH0 lH0), so the plosive is
+   a quick part-and-reseal — open at 30%, back shut by 100%, which is also the
+   element's static `d`. Short and ease-out so the burst front-loads the way a
+   release does. `m` is deliberately excluded: it's a hum, the lips stay shut.
+   `b` parts wider (uH5 lH4 over w15) than `p` (same aperture over w10), keeping
+   the two distinguishable at the peak the way their resting widths already are.
+   Corners sit on the centerline (cornerY0, matching `rest`), so the sealed
+   frames are a level line — cornerY2 dropped the corners below center and read
+   as a frown.
+   No top-teeth-clip keyframes here — b and p both set topTeeth and bottomTeeth
+   to 0, so the teeth sit translated out of view and the clip never shows. */
+@keyframes mouth-b-pop {
+  0%, 100% {
+    d: path("M 35,50 C 35,50 41.716,50 50,50 C 58.284,50 65,50 65,50 C 65,50 58.284,50 50,50 C 41.716,50 35,50 35,50 Z");
+  }
+  30% {
+    d: path("M 35,50 C 35,47.239 41.716,45 50,45 C 58.284,45 65,47.239 65,50 C 65,52.209 58.284,54 50,54 C 41.716,54 35,52.209 35,50 Z");
+  }
+}
+
+@keyframes upper-lip-b-pop {
+  0%, 100% {
+    d: path("M 35,50 C 35,50 41.716,50 50,50 C 58.284,50 65,50 65,50");
+  }
+  30% {
+    d: path("M 35,50 C 35,47.239 41.716,45 50,45 C 58.284,45 65,47.239 65,50");
+  }
+}
+
+@keyframes lower-lip-b-pop {
+  0%, 100% {
+    d: path("M 35,50 C 35,50 41.716,50 50,50 C 58.284,50 65,50 65,50");
+  }
+  30% {
+    d: path("M 35,50 C 35,52.209 41.716,54 50,54 C 58.284,54 65,52.209 65,50");
+  }
+}
+
+@keyframes mouth-p-pop {
+  0%, 100% {
+    d: path("M 40,50 C 40,50 44.477,50 50,50 C 55.523,50 60,50 60,50 C 60,50 55.523,50 50,50 C 44.477,50 40,50 40,50 Z");
+  }
+  30% {
+    d: path("M 40,50 C 40,47.239 44.477,45 50,45 C 55.523,45 60,47.239 60,50 C 60,52.209 55.523,54 50,54 C 44.477,54 40,52.209 40,50 Z");
+  }
+}
+
+@keyframes upper-lip-p-pop {
+  0%, 100% {
+    d: path("M 40,50 C 40,50 44.477,50 50,50 C 55.523,50 60,50 60,50");
+  }
+  30% {
+    d: path("M 40,50 C 40,47.239 44.477,45 50,45 C 55.523,45 60,47.239 60,50");
+  }
+}
+
+@keyframes lower-lip-p-pop {
+  0%, 100% {
+    d: path("M 40,50 C 40,50 44.477,50 50,50 C 55.523,50 60,50 60,50");
+  }
+  30% {
+    d: path("M 40,50 C 40,52.209 44.477,54 50,54 C 55.523,54 60,52.209 60,50");
+  }
+}
+
+.mouth-b-pop {
+  animation: mouth-b-pop 340ms ease-out forwards;
+}
+
+.upper-lip-b-pop {
+  animation: upper-lip-b-pop 340ms ease-out forwards;
+}
+
+.lower-lip-b-pop {
+  animation: lower-lip-b-pop 340ms ease-out forwards;
+}
+
+.mouth-p-pop {
+  animation: mouth-p-pop 340ms ease-out forwards;
+}
+
+.upper-lip-p-pop {
+  animation: upper-lip-p-pop 340ms ease-out forwards;
+}
+
+.lower-lip-p-pop {
+  animation: lower-lip-p-pop 340ms ease-out forwards;
 }
 
 #root {

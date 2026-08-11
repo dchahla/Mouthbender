@@ -3,8 +3,8 @@ import { Play, Square, MessageSquare, Ear } from 'lucide-react';
 
 const VISEMES = {
   rest: { w: 27, uH: 2, lH: 2, cornerY: 0, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
-  b: { w: 15, uH: 0, lH: 0, cornerY: 2, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
-  p: { w: 10, uH: 0, lH: 0, cornerY: 2, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
+  b: { w: 15, uH: 0, lH: 0, cornerY: 0, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
+  p: { w: 10, uH: 0, lH: 0, cornerY: 0, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
   m: { w: 40, uH: 0, lH: 0, cornerY: 2, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
   h: { w: 19, uH: 14, lH: 14, cornerY: 0, topTeeth: 0.6, bottomTeeth: 0.8, tongue: 1 },
   a: { w: 25, uH: 22, lH: 22, cornerY: 0, topTeeth: 0.3, bottomTeeth: 1, tongue: 0 },
@@ -89,14 +89,16 @@ const App = () => {
   const activeConfig = VISEMES[currentViseme];
   const transitionClass = 'transition-all duration-150 ease-out';
 
-  // Visemes that purse the lips. Like `tongue-k`, the gesture lives in index.css
-  // as a `d` morph, so every path drawn from the viseme geometry has to opt in —
+  // Visemes with a scripted lip gesture. Like `tongue-k` these live in index.css
+  // as `d` morphs, so every path drawn from the viseme geometry has to opt in —
   // animating the interior alone leaves the lips sitting still on top of it.
   // Resolves to e.g. `upper-lip-g-kiss`; adding a viseme here means adding the
   // four matching keyframe blocks in index.css.
-  const KISS_VISEMES = ['g', 'u'];
-  const kiss = (part) =>
-    KISS_VISEMES.includes(currentViseme) ? ` ${part}-${currentViseme}-kiss` : '';
+  const VISEME_GESTURES = { g: 'kiss', u: 'kiss', b: 'pop', p: 'pop' };
+  const gesture = (part) => {
+    const name = VISEME_GESTURES[currentViseme];
+    return name ? ` ${part}-${currentViseme}-${name}` : '';
+  };
 
   const getMetrics = (w, uH, lH) => ({
     kx: w * 0.55228,
@@ -202,13 +204,13 @@ const App = () => {
               <clipPath id="fullMouthClip">
                 <path
                   d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
-                  className={transitionClass + kiss('mouth')}
+                  className={transitionClass + gesture('mouth')}
                 />
               </clipPath>
               <clipPath id="topTeethClip">
                 <path
                   d={getTopTeethClipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
-                  className={transitionClass + kiss('top-teeth-clip')}
+                  className={transitionClass + gesture('top-teeth-clip')}
                 />
               </clipPath>
             </defs>
@@ -216,7 +218,7 @@ const App = () => {
             <path
               d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
               fill="#1a0505"
-              className={transitionClass + kiss('mouth')}
+              className={transitionClass + gesture('mouth')}
             />
 
             <g clipPath="url(#fullMouthClip)">
@@ -244,7 +246,7 @@ const App = () => {
               <path
                 d={getLowerLipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
                 fill="none" stroke="#ff4d4d" strokeWidth="4" strokeLinecap="round"
-                className={transitionClass + kiss('lower-lip')}
+                className={transitionClass + gesture('lower-lip')}
               />
             )}
 
@@ -260,7 +262,7 @@ const App = () => {
             <path
               d={getUpperLipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
               fill="none" stroke="#ff4d4d" strokeWidth="4" strokeLinecap="round"
-              className={transitionClass + kiss('upper-lip')}
+              className={transitionClass + gesture('upper-lip')}
             />
           </svg>
         </div>
