@@ -78,21 +78,64 @@ body {
   animation: tongue-k 700ms ease-in-out forwards;
 }
 
-/* Kissing motion for `g`: subtle puckering/rounding of the mouth */
+/* Velar `g` kiss: the mouth purses inward, then releases. Each path built from
+   the viseme geometry needs its own keyframes — the two lips, the interior fill
+   and the top-teeth clip are separate elements, so animating one alone just
+   hides the motion behind the others that stayed put.
+   Rest is `g` as configured (w16 uH6 lH4 cornerY1); the pucker is a narrower,
+   taller mouth (w10 uH8 lH6). Both run through getFullMouthPath's math. */
 @keyframes mouth-g-kiss {
-  0% {
-    d: path("M 34,51 C 34,47.72 42.24,45 50,45 C 57.76,45 66,47.72 66,51 C 66,54.04 57.76,56.5 50,56.5 C 42.24,56.5 34,54.04 34,51 Z");
+  0%, 100% {
+    d: path("M 34,51 C 34,47.686 41.164,44 50,44 C 58.836,44 66,47.686 66,51 C 66,53.209 58.836,54 50,54 C 41.164,54 34,53.209 34,51 Z");
   }
-  50% {
-    d: path("M 40,50.5 C 40,47.68 44.47,45.5 50,45.5 C 55.53,45.5 60,47.68 60,50.5 C 60,53.32 55.53,55.5 50,55.5 C 44.47,55.5 40,53.32 40,50.5 Z");
+  55% {
+    d: path("M 40,51 C 40,46.582 44.477,42 50,42 C 55.523,42 60,46.582 60,51 C 60,54.314 55.523,56 50,56 C 44.477,56 40,54.314 40,51 Z");
   }
-  100% {
-    d: path("M 34,51 C 34,47.72 42.24,45 50,45 C 57.76,45 66,47.72 66,51 C 66,54.04 57.76,56.5 50,56.5 C 42.24,56.5 34,54.04 34,51 Z");
+}
+
+@keyframes upper-lip-g-kiss {
+  0%, 100% {
+    d: path("M 34,51 C 34,47.686 41.164,44 50,44 C 58.836,44 66,47.686 66,51");
+  }
+  55% {
+    d: path("M 40,51 C 40,46.582 44.477,42 50,42 C 55.523,42 60,46.582 60,51");
+  }
+}
+
+@keyframes lower-lip-g-kiss {
+  0%, 100% {
+    d: path("M 34,51 C 34,53.209 41.164,54 50,54 C 58.836,54 66,53.209 66,51");
+  }
+  55% {
+    d: path("M 40,51 C 40,54.314 44.477,56 50,56 C 55.523,56 60,54.314 60,51");
+  }
+}
+
+/* Keeps the top teeth clipped to the lips as they purse — without this the
+   teeth rect (x30 w40) juts past the pucker, which only spans 40 to 60. */
+@keyframes top-teeth-clip-g-kiss {
+  0%, 100% {
+    d: path("M 34,51 C 34,47.686 41.164,44 50,44 C 58.836,44 66,47.686 66,51 L 100,100 L 0,100 Z");
+  }
+  55% {
+    d: path("M 40,51 C 40,46.582 44.477,42 50,42 C 55.523,42 60,46.582 60,51 L 100,100 L 0,100 Z");
   }
 }
 
 .mouth-g-kiss {
-  animation: mouth-g-kiss 500ms ease-in-out forwards;
+  animation: mouth-g-kiss 620ms ease-in-out forwards;
+}
+
+.upper-lip-g-kiss {
+  animation: upper-lip-g-kiss 620ms ease-in-out forwards;
+}
+
+.lower-lip-g-kiss {
+  animation: lower-lip-g-kiss 620ms ease-in-out forwards;
+}
+
+.top-teeth-clip-g-kiss {
+  animation: top-teeth-clip-g-kiss 620ms ease-in-out forwards;
 }
 
 #root {
