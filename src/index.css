@@ -138,6 +138,62 @@ body {
   animation: top-teeth-clip-g-kiss 620ms ease-in-out forwards;
 }
 
+/* `u` kiss: same gesture as `g`, but starting from an already-small mouth, so
+   it purses rounder rather than narrower. Rest is `u` as configured
+   (w10 uH8 lH6 cornerY2); the pucker (w7 uH8 lH7) is 14 across by 15 tall —
+   near-circular, and well inside the 20-wide resting shape. */
+@keyframes mouth-u-kiss {
+  0%, 100% {
+    d: path("M 40,52 C 40,47.582 44.477,42 50,42 C 55.523,42 60,47.582 60,52 C 60,55.314 55.523,56 50,56 C 44.477,56 40,55.314 40,52 Z");
+  }
+  55% {
+    d: path("M 43,52 C 43,47.582 46.134,42 50,42 C 53.866,42 57,47.582 57,52 C 57,55.866 53.866,57 50,57 C 46.134,57 43,55.866 43,52 Z");
+  }
+}
+
+@keyframes upper-lip-u-kiss {
+  0%, 100% {
+    d: path("M 40,52 C 40,47.582 44.477,42 50,42 C 55.523,42 60,47.582 60,52");
+  }
+  55% {
+    d: path("M 43,52 C 43,47.582 46.134,42 50,42 C 53.866,42 57,47.582 57,52");
+  }
+}
+
+@keyframes lower-lip-u-kiss {
+  0%, 100% {
+    d: path("M 40,52 C 40,55.314 44.477,56 50,56 C 55.523,56 60,55.314 60,52");
+  }
+  55% {
+    d: path("M 43,52 C 43,55.866 46.134,57 50,57 C 53.866,57 57,55.866 57,52");
+  }
+}
+
+@keyframes top-teeth-clip-u-kiss {
+  0%, 100% {
+    d: path("M 40,52 C 40,47.582 44.477,42 50,42 C 55.523,42 60,47.582 60,52 L 100,100 L 0,100 Z");
+  }
+  55% {
+    d: path("M 43,52 C 43,47.582 46.134,42 50,42 C 53.866,42 57,47.582 57,52 L 100,100 L 0,100 Z");
+  }
+}
+
+.mouth-u-kiss {
+  animation: mouth-u-kiss 620ms ease-in-out forwards;
+}
+
+.upper-lip-u-kiss {
+  animation: upper-lip-u-kiss 620ms ease-in-out forwards;
+}
+
+.lower-lip-u-kiss {
+  animation: lower-lip-u-kiss 620ms ease-in-out forwards;
+}
+
+.top-teeth-clip-u-kiss {
+  animation: top-teeth-clip-u-kiss 620ms ease-in-out forwards;
+}
+
 #root {
   width: 1126px;
   max-width: 100%;

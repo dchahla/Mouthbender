@@ -89,11 +89,14 @@ const App = () => {
   const activeConfig = VISEMES[currentViseme];
   const transitionClass = 'transition-all duration-150 ease-out';
 
-  // `g` purses the lips. Like `tongue-k`, the gesture lives in index.css as a
-  // `d` morph, so every path drawn from the viseme geometry has to opt in —
+  // Visemes that purse the lips. Like `tongue-k`, the gesture lives in index.css
+  // as a `d` morph, so every path drawn from the viseme geometry has to opt in —
   // animating the interior alone leaves the lips sitting still on top of it.
-  const isKissing = currentViseme === 'g';
-  const kiss = (animationClass) => (isKissing ? ` ${animationClass}` : '');
+  // Resolves to e.g. `upper-lip-g-kiss`; adding a viseme here means adding the
+  // four matching keyframe blocks in index.css.
+  const KISS_VISEMES = ['g', 'u'];
+  const kiss = (part) =>
+    KISS_VISEMES.includes(currentViseme) ? ` ${part}-${currentViseme}-kiss` : '';
 
   const getMetrics = (w, uH, lH) => ({
     kx: w * 0.55228,
@@ -199,13 +202,13 @@ const App = () => {
               <clipPath id="fullMouthClip">
                 <path
                   d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
-                  className={transitionClass + kiss('mouth-g-kiss')}
+                  className={transitionClass + kiss('mouth')}
                 />
               </clipPath>
               <clipPath id="topTeethClip">
                 <path
                   d={getTopTeethClipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
-                  className={transitionClass + kiss('top-teeth-clip-g-kiss')}
+                  className={transitionClass + kiss('top-teeth-clip')}
                 />
               </clipPath>
             </defs>
@@ -213,7 +216,7 @@ const App = () => {
             <path
               d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
               fill="#1a0505"
-              className={transitionClass + kiss('mouth-g-kiss')}
+              className={transitionClass + kiss('mouth')}
             />
 
             <g clipPath="url(#fullMouthClip)">
@@ -241,7 +244,7 @@ const App = () => {
               <path
                 d={getLowerLipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
                 fill="none" stroke="#ff4d4d" strokeWidth="4" strokeLinecap="round"
-                className={transitionClass + kiss('lower-lip-g-kiss')}
+                className={transitionClass + kiss('lower-lip')}
               />
             )}
 
@@ -257,7 +260,7 @@ const App = () => {
             <path
               d={getUpperLipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
               fill="none" stroke="#ff4d4d" strokeWidth="4" strokeLinecap="round"
-              className={transitionClass + kiss('upper-lip-g-kiss')}
+              className={transitionClass + kiss('upper-lip')}
             />
           </svg>
         </div>
