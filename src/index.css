@@ -138,45 +138,61 @@ body {
   animation: top-teeth-clip-g-kiss 620ms ease-in-out forwards;
 }
 
-/* `u` kiss: same gesture as `g`, but from an already-small mouth, so it purses
-   rounder rather than narrower. Rest is `u` as configured (w8 uH9 lH9 cornerY0)
-   — equal upper and lower dips with the corners on the centerline, so it reads
-   as an upright oval; an asymmetric lH with the corners pushed below center is
-   what made this look like a snout. The pucker (w6 uH8 lH8) closes it to 12
-   across by 16 tall. */
+/* `u` articulates the whole "oo" rather than holding one shape, so unlike the
+   out-and-back `g` this runs one direction through three stages:
+     0%   `o`'s geometry (w15 uH14 lH14) — the wide round opening the old
+          u -> "oo" text rule used to produce by emitting two `o` visemes
+     65%  the pucker (w6 uH8 lH8), lips at their tightest
+     100% `u` as configured (w8 uH9 lH9), which is also the element's static
+          `d`, so `forwards` hands back off without a jump
+   Equal upper and lower dips on the centerline keep every stage an upright
+   oval; an asymmetric lH with the corners below center is what read as a
+   snout before. */
 @keyframes mouth-u-kiss {
-  0%, 100% {
-    d: path("M 42,50 C 42,45.029 45.582,41 50,41 C 54.418,41 58,45.029 58,50 C 58,54.971 54.418,59 50,59 C 45.582,59 42,54.971 42,50 Z");
+  0% {
+    d: path("M 35,50 C 35,42.268 41.716,36 50,36 C 58.284,36 65,42.268 65,50 C 65,57.732 58.284,64 50,64 C 41.716,64 35,57.732 35,50 Z");
   }
-  55% {
+  65% {
     d: path("M 44,50 C 44,45.582 46.686,42 50,42 C 53.314,42 56,45.582 56,50 C 56,54.418 53.314,58 50,58 C 46.686,58 44,54.418 44,50 Z");
+  }
+  100% {
+    d: path("M 42,50 C 42,45.029 45.582,41 50,41 C 54.418,41 58,45.029 58,50 C 58,54.971 54.418,59 50,59 C 45.582,59 42,54.971 42,50 Z");
   }
 }
 
 @keyframes upper-lip-u-kiss {
-  0%, 100% {
-    d: path("M 42,50 C 42,45.029 45.582,41 50,41 C 54.418,41 58,45.029 58,50");
+  0% {
+    d: path("M 35,50 C 35,42.268 41.716,36 50,36 C 58.284,36 65,42.268 65,50");
   }
-  55% {
+  65% {
     d: path("M 44,50 C 44,45.582 46.686,42 50,42 C 53.314,42 56,45.582 56,50");
+  }
+  100% {
+    d: path("M 42,50 C 42,45.029 45.582,41 50,41 C 54.418,41 58,45.029 58,50");
   }
 }
 
 @keyframes lower-lip-u-kiss {
-  0%, 100% {
-    d: path("M 42,50 C 42,54.971 45.582,59 50,59 C 54.418,59 58,54.971 58,50");
+  0% {
+    d: path("M 35,50 C 35,57.732 41.716,64 50,64 C 58.284,64 65,57.732 65,50");
   }
-  55% {
+  65% {
     d: path("M 44,50 C 44,54.418 46.686,58 50,58 C 53.314,58 56,54.418 56,50");
+  }
+  100% {
+    d: path("M 42,50 C 42,54.971 45.582,59 50,59 C 54.418,59 58,54.971 58,50");
   }
 }
 
 @keyframes top-teeth-clip-u-kiss {
-  0%, 100% {
-    d: path("M 42,50 C 42,45.029 45.582,41 50,41 C 54.418,41 58,45.029 58,50 L 100,100 L 0,100 Z");
+  0% {
+    d: path("M 35,50 C 35,42.268 41.716,36 50,36 C 58.284,36 65,42.268 65,50 L 100,100 L 0,100 Z");
   }
-  55% {
+  65% {
     d: path("M 44,50 C 44,45.582 46.686,42 50,42 C 53.314,42 56,45.582 56,50 L 100,100 L 0,100 Z");
+  }
+  100% {
+    d: path("M 42,50 C 42,45.029 45.582,41 50,41 C 54.418,41 58,45.029 58,50 L 100,100 L 0,100 Z");
   }
 }
 
