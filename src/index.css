@@ -78,6 +78,23 @@ body {
   animation: tongue-k 700ms ease-in-out forwards;
 }
 
+/* Kissing motion for `g`: subtle puckering/rounding of the mouth */
+@keyframes mouth-g-kiss {
+  0% {
+    d: path("M 34,51 C 34,47.72 42.24,45 50,45 C 57.76,45 66,47.72 66,51 C 66,54.04 57.76,56.5 50,56.5 C 42.24,56.5 34,54.04 34,51 Z");
+  }
+  50% {
+    d: path("M 40,50.5 C 40,47.68 44.47,45.5 50,45.5 C 55.53,45.5 60,47.68 60,50.5 C 60,53.32 55.53,55.5 50,55.5 C 44.47,55.5 40,53.32 40,50.5 Z");
+  }
+  100% {
+    d: path("M 34,51 C 34,47.72 42.24,45 50,45 C 57.76,45 66,47.72 66,51 C 66,54.04 57.76,56.5 50,56.5 C 42.24,56.5 34,54.04 34,51 Z");
+  }
+}
+
+.mouth-g-kiss {
+  animation: mouth-g-kiss 500ms ease-in-out forwards;
+}
+
 #root {
   width: 1126px;
   max-width: 100%;

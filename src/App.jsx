@@ -17,7 +17,7 @@ const VISEMES = {
   r: { w: 20, uH: 8, lH: 8, cornerY: 0, topTeeth: 0.9, bottomTeeth: 0.5, tongue: 1 },
   s: { w: 30, uH: 8, lH: 8, cornerY: 0, topTeeth: 1, bottomTeeth: 1, tongue: 1 },
   l: { w: 34, uH: 6, lH: 8, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 0.95 },
-  g: { w: 16, uH: 6, lH: 4, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 0.3 },
+  g: { w: 16, uH: 6, lH: 4, cornerY: 1, topTeeth: 0.9, bottomTeeth: 0.8, tongue: 0.3 },
   grin: { w: 45, uH: 5, lH: 12, cornerY: -15, topTeeth: 1, bottomTeeth: 0, tongue: 0 }
 };
 
@@ -207,7 +207,7 @@ const App = () => {
             <path
               d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
               fill="#1a0505"
-              className={transitionClass}
+              className={`${transitionClass} ${currentViseme === 'g' ? 'mouth-g-kiss' : ''}`}
             />
 
             <g clipPath="url(#fullMouthClip)">
