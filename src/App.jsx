@@ -10,8 +10,8 @@ const VISEMES = {
   a: { w: 25, uH: 22, lH: 22, cornerY: 0, topTeeth: 0.3, bottomTeeth: 1, tongue: 0 },
   e: { w: 28, uH: 12, lH: 8, cornerY: 5, topTeeth: 1, bottomTeeth: 1, tongue: 0 },
   o: { w: 15, uH: 14, lH: 14, cornerY: 0, topTeeth: 0.6, bottomTeeth: 0.8, tongue: 0 },
-  u: { w: 10, uH: 8, lH: 6, cornerY: 2, topTeeth: 0, bottomTeeth: 0.8, tongue: 0 },
-  f: { w: 28, uH: 10, lH: -4, cornerY: 2, topTeeth: 1, bottomTeeth: 0, tongue: 0 },
+  u: { w: 8, uH: 9, lH: 9, cornerY: 0, topTeeth: 0, bottomTeeth: 0.8, tongue: 0 },
+  f: { w: 28, uH: 10, lH: -4, cornerY: 2, topTeeth: 1, bottomTeeth: 1, tongue: 0 },
   th: { w: 30, uH: 8, lH: 8, cornerY: 0, topTeeth: 1, bottomTeeth: 1, tongue: 1 },
   k: { w: 27, uH: 6, lH: 8, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 1 },
   r: { w: 20, uH: 8, lH: 8, cornerY: 0, topTeeth: 0.9, bottomTeeth: 0.5, tongue: 1 },
@@ -27,7 +27,7 @@ const tokenToViseme = (token) => {
   if (/[m]/i.test(token)) return 'm';
   if (/[p]/i.test(token)) return 'p';
   if (/[b]/i.test(token)) return 'b';
-  if (token === 'u') return 'u';
+  if (/[u]/i.test(token)) return 'u';
   if (/[h]/i.test(token)) return 'h';
   if (/[ow]/i.test(token)) return 'o';
   if (/[fv]/i.test(token)) return 'f';
@@ -60,7 +60,7 @@ const SILENT_E_RULE = [/([bcdfghjklmnpqrstvwxz])e\b/gi, '$1'];
 // "uck" must land before "ing" so "trucking" -> "trooocking" -> "trooocke".
 const PRONUNCIATION_SOUND_RULES = [
   [/uck/gi, 'oock'],
-  [/u/gi, 'oo'],
+  // [/u/gi, 'oo'],
   [/ph/gi, 'f'],
   [/z/gi, 'ss'],
   [/ing/gi, 'e'],
