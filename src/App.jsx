@@ -3,21 +3,27 @@ import { Play, Square, MessageSquare, Ear } from 'lucide-react';
 
 const VISEMES = {
   rest: { w: 27, uH: 2, lH: 2, cornerY: 0, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
-  b: { w: 15, uH: 0, lH: 0, cornerY: 2, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
-  p: { w: 10, uH: 0, lH: 0, cornerY: 2, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
+  b: { w: 15, uH: 0, lH: 0, cornerY: 0, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
+  p: { w: 10, uH: 0, lH: 0, cornerY: 0, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
   m: { w: 40, uH: 0, lH: 0, cornerY: 2, topTeeth: 0, bottomTeeth: 0, tongue: 0 },
   h: { w: 19, uH: 14, lH: 14, cornerY: 0, topTeeth: 0.6, bottomTeeth: 0.8, tongue: 1 },
   a: { w: 25, uH: 22, lH: 22, cornerY: 0, topTeeth: 0.3, bottomTeeth: 1, tongue: 0 },
   e: { w: 28, uH: 12, lH: 8, cornerY: 5, topTeeth: 1, bottomTeeth: 1, tongue: 0 },
   o: { w: 15, uH: 14, lH: 14, cornerY: 0, topTeeth: 0.6, bottomTeeth: 0.8, tongue: 0 },
-  u: { w: 10, uH: 8, lH: 6, cornerY: 2, topTeeth: 0, bottomTeeth: 0.8, tongue: 0 },
-  f: { w: 28, uH: 10, lH: -4, cornerY: 2, topTeeth: 1, bottomTeeth: 0, tongue: 0 },
+  u: { w: 8, uH: 9, lH: 9, cornerY: 0, topTeeth: 0, bottomTeeth: 0.8, tongue: 0 },
+  f: { w: 28, uH: 10, lH: -4, cornerY: 2, topTeeth: 1, bottomTeeth: 1, tongue: 0 },
   th: { w: 30, uH: 8, lH: 8, cornerY: 0, topTeeth: 1, bottomTeeth: 1, tongue: 1 },
   k: { w: 27, uH: 6, lH: 8, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 1 },
   r: { w: 20, uH: 8, lH: 8, cornerY: 0, topTeeth: 0.9, bottomTeeth: 0.5, tongue: 1 },
   s: { w: 30, uH: 8, lH: 8, cornerY: 0, topTeeth: 1, bottomTeeth: 1, tongue: 1 },
   l: { w: 34, uH: 6, lH: 8, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 0.95 },
-  g: { w: 16, uH: 6, lH: 4, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 0.3 },
+  // Alveolar nasal: like `l`, the tongue seals against the roof — the airflow
+  // goes out the nose, so the mouth has to be nearly shut for the two to touch.
+  // uH is what governs contact, not `tongue`: the tongue tops out at y=48, so a
+  // tall uH parks the roof out of its reach no matter how high `tongue` goes.
+  // Kept narrower than `l` so the two stay distinguishable.
+  n: { w: 24, uH: 5, lH: 7, cornerY: 1, topTeeth: 0.9, bottomTeeth: 1.0, tongue: 1 },
+  g: { w: 16, uH: 6, lH: 4, cornerY: 1, topTeeth: 0.9, bottomTeeth: 0.8, tongue: 0.3 },
   grin: { w: 45, uH: 5, lH: 12, cornerY: -15, topTeeth: 1, bottomTeeth: 0, tongue: 0 }
 };
 
@@ -27,16 +33,17 @@ const tokenToViseme = (token) => {
   if (/[m]/i.test(token)) return 'm';
   if (/[p]/i.test(token)) return 'p';
   if (/[b]/i.test(token)) return 'b';
-  if (token === 'u') return 'u';
+  if (/[u]/i.test(token)) return 'u';
   if (/[h]/i.test(token)) return 'h';
   if (/[ow]/i.test(token)) return 'o';
   if (/[fv]/i.test(token)) return 'f';
   if (/[szcj]/i.test(token)) return 's';
   if (/[l]/i.test(token)) return 'l';
-  if (/[tdn]/i.test(token)) return 'th';
-  if (/[gn]/i.test(token)) return 'g';
-  if (/[r]/i.test(token)) return 'g';
-  if (/[kqdrx]/i.test(token)) return 'k';
+  if (/[n]/i.test(token)) return 'n';
+  if (/[td]/i.test(token)) return 'th';
+  if (/[g]/i.test(token)) return 'g';
+  if (/[r]/i.test(token)) return 'r';
+  if (/[kqx]/i.test(token)) return 'k';
   if (/[eiy]/i.test(token)) return 'e';
   if (/[a]/i.test(token)) return 'a';
   
@@ -46,7 +53,7 @@ const tokenToViseme = (token) => {
 // Whole-word swaps for words whose spelling doesn't hint at how they sound.
 const PRONUNCIATION_WORD_RULES = [
   [/\bis\b/gi, 'eeess'],
-  [/\bthe\b/gi, 'theeeth'],
+  [/\bthis\b/gi, 'theeeth'],
   [/\bi\b/gi, 'a'],
 ];
 
@@ -60,7 +67,7 @@ const SILENT_E_RULE = [/([bcdfghjklmnpqrstvwxz])e\b/gi, '$1'];
 // "uck" must land before "ing" so "trucking" -> "trooocking" -> "trooocke".
 const PRONUNCIATION_SOUND_RULES = [
   [/uck/gi, 'oock'],
-  [/u/gi, 'oo'],
+  // [/u/gi, 'oo'],
   [/ph/gi, 'f'],
   [/z/gi, 'ss'],
   [/ing/gi, 'e'],
@@ -88,6 +95,40 @@ const App = () => {
 
   const activeConfig = VISEMES[currentViseme];
   const transitionClass = 'transition-all duration-150 ease-out';
+
+  // Gesture visemes pass through an extra shape before settling: `g`/`u` purse,
+  // `b`/`p` part and reseal. These are NOT CSS animations. An animation on `d`
+  // overrides `transitionClass` on the same element, which pins the path and
+  // kills the morph from the previous letter — the mouth jumps instead of
+  // moving. Driving the intermediate shape through React state instead means
+  // every change is an ordinary `d` swap that the 150ms transition blends,
+  // exactly like the non-gesture visemes.
+  const VISEME_GESTURES = {
+    g: { w: 10, uH: 8, lH: 6, cornerY: 1 },
+    u: { w: 6, uH: 8, lH: 8, cornerY: 0 },
+    b: { w: 15, uH: 5, lH: 4, cornerY: 0 },
+    p: { w: 10, uH: 5, lH: 4, cornerY: 0 }
+  };
+
+  // While set, the mouth renders this shape instead of the viseme's resting
+  // one. playSequence and the viseme buttons raise it, then clear it a frame
+  // later so the transition carries the mouth back to rest on its own.
+  const [gestureShape, setGestureShape] = useState(null);
+
+  // Enter the gesture shape, hold it, then release. Awaited by playSequence so
+  // a letter's hold covers its own gesture; the viseme buttons fire it too.
+  const runGesture = async (viseme, hold) => {
+    const peak = VISEME_GESTURES[viseme];
+    if (!peak) return;
+    setGestureShape(peak);
+    await new Promise(r => setTimeout(r, hold));
+    setGestureShape(null);
+  };
+
+  // Resting geometry, overridden mid-gesture. Everything downstream reads this
+  // rather than activeConfig, so the gesture flows through the same code path
+  // (and the same transition) as an ordinary viseme change.
+  const shape = gestureShape ?? activeConfig;
 
   const getMetrics = (w, uH, lH) => ({
     kx: w * 0.55228,
@@ -169,10 +210,20 @@ const App = () => {
       setCurrentViseme(viseme);
 
       const duration = viseme === 'th' ? 220 : viseme === 's' ? 100 : 180;
-      await new Promise(r => setTimeout(r, duration));
+
+      // Gesture visemes spend the front of their hold at the peak shape and the
+      // rest settling back, so the whole gesture fits inside the letter rather
+      // than bleeding into the next one.
+      if (VISEME_GESTURES[viseme]) {
+        await runGesture(viseme, duration * 0.55);
+        await new Promise(r => setTimeout(r, duration * 0.45));
+      } else {
+        await new Promise(r => setTimeout(r, duration));
+      }
     }
 
     await new Promise(r => setTimeout(r, 400));
+    setGestureShape(null);
     setCurrentViseme('rest');
     setIsPlaying(false);
   };
@@ -187,25 +238,25 @@ const App = () => {
           <p className="text-slate-500 text-[10px] uppercase tracking-widest mt-1">hellbender.com was taken.</p>
         </header>
 
-        <div style={{  maxHeight: `300px` }} className="relative aspect-video w-full flex items-center justify-center bg-black/40 rounded-3xl  mb-6 shadow-inner overflow-hidden">
+        <div style={{  maxHeight: `500px` }} className="relative aspect-video w-full flex items-center justify-center bg-black/40 rounded-3xl  mb-6 shadow-inner overflow-hidden">
           <svg viewBox="0 0 100 100" className="w-full h-full filter drop-shadow-xl">
             <defs>
               <clipPath id="fullMouthClip">
                 <path
-                  d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
+                  d={getFullMouthPath(shape.w, shape.uH, shape.lH, shape.cornerY)}
                   className={transitionClass}
                 />
               </clipPath>
               <clipPath id="topTeethClip">
                 <path
-                  d={getTopTeethClipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
+                  d={getTopTeethClipPath(shape.w, shape.uH, shape.lH, shape.cornerY)}
                   className={transitionClass}
                 />
               </clipPath>
             </defs>
 
             <path
-              d={getFullMouthPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
+              d={getFullMouthPath(shape.w, shape.uH, shape.lH, shape.cornerY)}
               fill="#1a0505"
               className={transitionClass}
             />
@@ -225,15 +276,15 @@ const App = () => {
               />
             </g>
 
-            {activeConfig.lipSwell ? (
+            {shape.lipSwell ? (
               <path
-                d={getLowerLipShape(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY, activeConfig.lipSwell)}
+                d={getLowerLipShape(shape.w, shape.uH, shape.lH, shape.cornerY, shape.lipSwell)}
                 fill="#ff4d4d"
                 className={transitionClass}
               />
             ) : (
               <path
-                d={getLowerLipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
+                d={getLowerLipPath(shape.w, shape.uH, shape.lH, shape.cornerY)}
                 fill="none" stroke="#ff4d4d" strokeWidth="4" strokeLinecap="round"
                 className={transitionClass}
               />
@@ -249,7 +300,7 @@ const App = () => {
             </g>
 
             <path
-              d={getUpperLipPath(activeConfig.w, activeConfig.uH, activeConfig.lH, activeConfig.cornerY)}
+              d={getUpperLipPath(shape.w, shape.uH, shape.lH, shape.cornerY)}
               fill="none" stroke="#ff4d4d" strokeWidth="4" strokeLinecap="round"
               className={transitionClass}
             />
@@ -290,7 +341,10 @@ const App = () => {
           {Object.keys(VISEMES).map((vKey) => (
             <button
               key={vKey}
-              onClick={() => setCurrentViseme(vKey)}
+              onClick={() => {
+                setCurrentViseme(vKey);
+                runGesture(vKey, 260);
+              }}
               disabled={isPlaying}
               className={`p-2 rounded-xl border text-[10px] font-bold uppercase transition-all ${currentViseme === vKey
                   ? 'bg-cyan-500/20 border-cyan-500/50 text-cyan-300 shadow-sm shadow-cyan-500/20'
